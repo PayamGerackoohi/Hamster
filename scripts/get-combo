@@ -1,0 +1,4 @@
+path=`dirname $0`
+cd ${path}/../parse/combo
+node combo.js
+open combo.html
