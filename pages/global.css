@@ -1,0 +1,29 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+}
+
+#nav {
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+#nav>p {
+  display: block;
+  color: #000;
+  margin: 0;
+  padding: 1em 2em;
+  text-decoration: none;
+  text-wrap: nowrap;
+}
+
+#nav>p.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+#nav>p:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}

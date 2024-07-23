@@ -1,3 +1,0 @@
-path=`dirname $0`
-${path}/get-cipher
-${path}/get-combo

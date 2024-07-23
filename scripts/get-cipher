@@ -1,4 +1,0 @@
-path=`dirname $0`
-cd ${path}/../parse/cipher
-node cipher.js
-open cipher.html
