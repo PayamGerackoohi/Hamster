@@ -1,0 +1,153 @@
+#content {
+  padding: 0
+}
+
+#root>*+* {
+  margin: 1em
+}
+
+.action-bar {
+  padding: 1em;
+  display: flex;
+  background-color: navy;
+  align-items: center;
+  gap: .5em
+}
+
+.action-bar>.reach-time {
+  color: #fff;
+  flex-grow: 1;
+  text-align: right;
+  margin: 0
+}
+
+table {
+  table-layout: fixed;
+  background-color: #000;
+  width: calc(100% - 2em)
+}
+
+td {
+  padding: .5em;
+  overflow-wrap: break-word
+}
+
+.current-status tr {
+  text-align: center
+}
+
+thead {
+  background-color: green;
+  color: #fff;
+  text-align: center
+}
+
+tbody>tr:nth-child(odd) {
+  background-color: #fff
+}
+
+tbody>tr:nth-child(even) {
+  background-color: #d3d3d3
+}
+
+tbody>tr[selected] {
+  color: #fff;
+  background-color: navy
+}
+
+.centered-text {
+  text-align: center
+}
+
+#settings {
+  background-color: navy;
+  border-radius: 1em;
+  padding: 1em
+}
+
+#settings>label {
+  color: #fff
+}
+
+#settings>button {
+  padding-inline: 1em;
+  padding-block: .5em
+}
+
+.add-group-form {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  align-items: center;
+  gap: .5em
+}
+
+.add-group-form>* {
+  padding: .5em
+}
+
+.add-group-form>.button-row {
+  width: 100%;
+  display: flex;
+  padding: 0;
+  margin: 0
+}
+
+.add-group-form>.button-row>* {
+  flex-grow: 1
+}
+
+.positive-button {
+  background-color: green
+}
+
+.negative-button {
+  background-color: red
+}
+
+.negative-button,
+.positive-button {
+  color: #fff
+}
+
+.remove-button {
+  color: red;
+  font-size: 1.5em
+}
+
+.hide {
+  display: none
+}
+
+.flex-row {
+  display: flex
+}
+
+.flex-row>.extend {
+  flex-grow: 1
+}
+
+.no-padding {
+  padding: 0
+}
+
+.normal-button-padding {
+  padding-inline: 1em;
+  padding-block: .5em
+}
+
+.red-text {
+  color: red
+}
+
+@media screen and (max-width:480px) {
+  #root {
+    width: 480px
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .action-bar {
+    padding-left: 5em;
+  }
+}

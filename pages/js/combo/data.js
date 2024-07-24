@@ -1,0 +1,1 @@
+const data = [{"group":"Specials","card":"Villa for DEV Team"},{"group":"Specials","card":"YouTube Gold Button"},{"group":"Specials","card":"Telegram Miniapp Launch"}]

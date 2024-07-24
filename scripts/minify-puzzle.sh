@@ -1,17 +1,16 @@
 set -e
 path=`dirname $0`
-cd ${path}/../puzzle
-minify() {
-  html-minifier -o ../artifacts/$1 $1 \
-  --collapse-whitespace \
-  --remove-comments \
-  --minify-css \
-  --minify-js
-}
-if [ -f "$1" ]; then
-  minify $1
-elif [ -f "$1.html" ]; then
-  minify $1.html
+cd ${path}
+. minify.sh
+cd ..
+
+dst=pages/$1
+src=src/puzzle/$1
+
+if [ -f "${src}" ]; then
+  minify ${dst} ${src}
+elif [ -f "${src}.html" ]; then
+  minify ${dst}.html ${src}.html
 else
   echo "File \"$1\" does not exist"
 fi

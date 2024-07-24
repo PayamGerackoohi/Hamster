@@ -1,0 +1,15 @@
+@import 'util/table.css';
+
+#content {
+  font-size: 125%;
+}
+
+td:first-child {
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  #content {
+    padding-left: 4em;
+  }
+}

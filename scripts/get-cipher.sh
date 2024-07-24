@@ -1,12 +1,13 @@
 set -e
 path=`dirname $0`
-cd ${path}/../parse/cipher
+cd ${path}
+. minify.sh
+cd ..
+
+pushd src/cipher > /dev/null
 node cipher.js
-file=cipher.html
-output=../../artifacts/${file}
-html-minifier -o ${output} ${file} \
---collapse-whitespace \
---remove-comments \
---minify-css \
---minify-js
-open ${output}
+popd > /dev/null
+
+minify pages/cipher.html src/cipher/cipher.html
+minify pages/js/cipher/data.js src/cipher/js/cipher/data.js
+minify pages/js/cipher/content.js src/cipher/js/cipher/content.js

@@ -1,12 +1,13 @@
 set -e
 path=`dirname $0`
-cd ${path}/../parse/combo
+cd ${path}
+. minify.sh
+cd ..
+
+pushd src/combo > /dev/null
 node combo.js
-file=combo.html
-output=../../artifacts/${file}
-html-minifier -o ${output} ${file} \
---collapse-whitespace \
---remove-comments \
---minify-css \
---minify-js
-open ${output}
+popd > /dev/null
+
+minify pages/combo.html src/combo/combo.html
+minify pages/js/combo/data.js src/combo/js/combo/data.js
+minify pages/js/combo/content.js src/combo/js/combo/content.js
