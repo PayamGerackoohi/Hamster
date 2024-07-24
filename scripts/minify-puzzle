@@ -4,13 +4,13 @@ cd ${path}
 . minify-util
 cd ..
 
-dst=pages/$1
+dst=pages/puzzle.html
 src=src/puzzle/$1
 
 if [ -f "${src}" ]; then
   minify ${dst} ${src}
 elif [ -f "${src}.html" ]; then
-  minify ${dst}.html ${src}.html
+  minify ${dst} ${src}.html
 else
   echo "File \"$1\" does not exist"
 fi

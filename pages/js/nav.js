@@ -21,7 +21,7 @@ const navItems = [
   },
   {
     name: 'Puzzle',
-    ref: 'puzzle-2024-07-25.html'
+    ref: 'puzzle.html'
   },
 ]
 
