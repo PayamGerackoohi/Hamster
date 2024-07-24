@@ -1,0 +1,18 @@
+set -e
+path=`dirname $0`
+cd ${path}
+. minify-util
+cd ..
+
+pushd src/cipher > /dev/null
+node cipher.js
+popd > /dev/null
+
+html=cipher.html
+data=js/cipher/data.js
+content=js/cipher/content.js
+srcDir=src/cipher/
+pageDir=pages/
+minify ${pageDir}${html} ${srcDir}${html}
+minify ${pageDir}${data} ${srcDir}${data}
+minify ${pageDir}${content} ${srcDir}${content}

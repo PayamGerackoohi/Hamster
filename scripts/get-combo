@@ -1,0 +1,18 @@
+set -e
+path=`dirname $0`
+cd ${path}
+. minify-util
+cd ..
+
+pushd src/combo > /dev/null
+node combo.js
+popd > /dev/null
+
+html=combo.html
+data=js/combo/data.js
+content=js/combo/content.js
+srcDir=src/combo/
+pageDir=pages/
+minify ${pageDir}${html} ${srcDir}${html}
+minify ${pageDir}${data} ${srcDir}${data}
+minify ${pageDir}${content} ${srcDir}${content}

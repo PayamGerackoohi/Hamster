@@ -1,0 +1,10 @@
+set -e
+path=`dirname $0`
+cd ${path}
+. minify-util
+cd ..
+
+html=calculator.html
+pageDir=pages/
+srcDir=src/calculator/
+minify ${pageDir}${html} ${srcDir}${html}

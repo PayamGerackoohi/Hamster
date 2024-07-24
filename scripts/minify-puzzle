@@ -1,7 +1,7 @@
 set -e
 path=`dirname $0`
 cd ${path}
-. minify.sh
+. minify-util
 cd ..
 
 dst=pages/$1
