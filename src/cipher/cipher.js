@@ -1,5 +1,4 @@
 const morse = require('../util/morse')
-
 const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../util/util')
 const fs = require('fs')
 

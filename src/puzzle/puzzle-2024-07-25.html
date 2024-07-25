@@ -14,7 +14,7 @@
   <div id="nav" page="Puzzle"></div>
   <div id="content">
     <div id="canvas-holder">
-      <canvas id="canvas" width="600" height="600"></canvas>
+      <canvas id="canvas"></canvas>
     </div>
     <div class="controller">
       <button id="previous" onclick="onPreviousClicked()">&lt;</button>
@@ -23,11 +23,18 @@
     </div>
   </div>
   <script>
+    const canvasHolderEl = document.getElementById("canvas-holder")
     const canvasEl = document.getElementById("canvas")
     const canvas = canvasEl.getContext("2d")
     const previousEl = document.getElementById("previous")
     const nextEl = document.getElementById("next")
     const stepsEl = document.getElementById("steps")
+
+    const { width, height } = canvasHolderEl.getBoundingClientRect()
+    const size = Math.min(width, height) - 2
+    const fontSize = size / 200
+    const font = `${fontSize}em Arial`
+    canvasEl.width = canvasEl.height = size
     let blocks = [
       {
         p: [0, 0],
@@ -144,7 +151,7 @@
       [3, 2, 3, 0, 1],
     ]
     let step = 0
-    const blockSize = 600 / 6
+    const blockSize = size / 6
     updateSteps()
     draw()
     function onPreviousClicked() {
@@ -213,9 +220,10 @@
       ]
     }
     function textCoord(text, x, y, h, v) {
+      let { width, actualBoundingBoxAscent, actualBoundingBoxDescent } = canvas.measureText(text)
       return [
-        x + h / 2 - ((text.length > 1) ? 25 : 10),
-        y + v / 2 + 15,
+        x + h / 2 - width / 2,
+        y + v / 2 + (actualBoundingBoxAscent - actualBoundingBoxDescent) / 2,
       ]
     }
     function drawKey() {
@@ -237,9 +245,9 @@
         canvas.rect(x, y, h, v)
 
         const i = index.toString()
-        const [tx, ty] = textCoord(i, x, y, h, v)
-        canvas.font = '3em Arial'
+        canvas.font = font
         canvas.fillStyle = 'black'
+        const [tx, ty] = textCoord(i, x, y, h, v)
         canvas.fillText(i, tx, ty)
 
         index += 1
@@ -273,9 +281,9 @@
       canvas.fillStyle = 'lightgray'
       canvas.fillRect(x, y, h, v)
 
-      const [tx, ty] = textCoord(text, x, y, h, v)
-      canvas.font = '3em Arial'
+      canvas.font = font
       canvas.fillStyle = 'yellow'
+      const [tx, ty] = textCoord(text, x, y, h, v)
       canvas.fillText(text, tx, ty)
     }
   </script>

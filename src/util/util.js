@@ -2,9 +2,9 @@ const https = require('https')
 const { pipeline, Transform } = require('stream')
 const fs = require('fs')
 
-function makeTempDir() {
-  if (!fs.existsSync('temp'))
-    fs.mkdirSync('temp')
+function makeTempDir(name = 'temp') {
+  if (!fs.existsSync(name))
+    fs.mkdirSync(name)
 }
 
 function downlaod({ link, output }) {

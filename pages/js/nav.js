@@ -23,6 +23,10 @@ const navItems = [
     name: 'Puzzle',
     ref: 'puzzle.html'
   },
+  {
+    name: 'Rocky Rabbit',
+    ref: 'rabbit.html'
+  },
 ]
 
 makeNav()
