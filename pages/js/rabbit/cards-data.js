@@ -1,1 +1,1 @@
-const cardData = { img: 'https://imdweather.com/wp-content/uploads/2024/07/5839463138397897317.jpg', ul: '<ul><li>Invite 1 new friend</li><li>Charity tournament (Fighter&gt;venture)</li><li>Endurance training (Fighter&gt;upgrade)</li></ul>', }
+const cardData = { img: 'https://imdweather.com/wp-content/uploads/2024/07/5841389014618325704.jpg', ul: '<ul><li>Coach &gt; Claim &gt; Endurance Practice</li><li>Tournaments &gt; Specter Tournament</li><li>Fighter &gt; Venture &gt; Sponsorship Deals</li></ul>', }

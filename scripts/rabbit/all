@@ -1,6 +1,5 @@
 set -e
 path=`dirname $0`
-cd ${path}/../../src/rabbit
 ./cards
 ./enigma
 ./minify-html

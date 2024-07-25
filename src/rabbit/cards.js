@@ -47,7 +47,6 @@ function extract(input) {
     })
   }
   function phase4(input) {
-    console.log(`phase4: input: "${input}"`)
     return extractFromFile({
       input,
       output: `${tempDir}phase4.html`,
