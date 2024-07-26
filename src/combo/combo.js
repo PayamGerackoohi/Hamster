@@ -32,15 +32,17 @@ function extract(input) {
     )
   }
   function phase3(input) {
-    const dataRegex = /^(.+) \((.+)\)$/
     return new Promise(resolve => {
+      const regex = /(?<card>.*)\((?<group>.*)\)/
       const data = fs.readFileSync(input)
         .toString()
         .replace(/<li>|<b>|<\/b>|<\/ul>/g, '')
         .split('</li>')
-        .map(it => dataRegex.exec(it))
         .filter(it => it)
-        .map(it => ({ group: it[2], card: it[1] }))
+        .map(it => {
+          const { group, card } = regex.exec(it).groups
+          return { group: group.trim(), card: card.trim() }
+        })
       fs.writeFileSync('js/combo/data.js', `const data = ${JSON.stringify(data)}`)
       resolve()
     })
