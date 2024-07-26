@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Puzzle 2024-07-25</title>
+  <title>Puzzle 2024-07-26</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="css/common.css" rel="stylesheet">
   <link href="css/puzzle.css" rel="stylesheet">
@@ -35,9 +35,22 @@
     let fontInfo = {}
     const { blocks, key, operations, guides } = puzzleData
 
+    observeKeyPress()
     observeWindowSize()
     updateSteps()
 
+    function observeKeyPress() {
+      document.addEventListener('keydown', e => {
+        switch (e.key) {
+          case 'ArrowLeft':
+            onPreviousClicked()
+            break
+          case 'ArrowRight':
+            onNextClicked()
+            break
+        }
+      })
+    }
     function observeWindowSize() {
       onSizeChanged()
       window.onresize = onSizeChanged

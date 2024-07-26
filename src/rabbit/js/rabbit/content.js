@@ -7,6 +7,6 @@ contentEl.innerHTML = `
 </div>
 <h2>Enigma</h2>
 <div>
-  ${enigmaData}
+  <img src="${enigmaData.link}">
 </div>
 `

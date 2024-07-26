@@ -1,32 +1,36 @@
-const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../util/util')
 const fs = require('fs')
+const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../util/util')
 
-const tempDir = 'temp-enigma/'
+tempDir = 'temp-enigma/'
 makeTempDir(tempDir)
 
 downlaod({
-  link: 'https://mahapolicerc.mahaitexam.in/rocky-rabbit-enigma/',
+  link: 'https://hindijankaripur.com/rockyrabbit-wallet-passphrase-order/',
   output: `${tempDir}original.html`
 }).then(file => extract(file))
-  .catch(err => console.log(err))
 
-function extract(input) {
-  return phase1(input)
+function extract(file) {
+  return phase1(file)
     .then(file => phase2(file))
 
   function phase1(input) {
     return extractFromFile({
       input,
       output: `${tempDir}phase1.html`,
-      digester: new StringDigester('<figure', '</figure>'),
+      digester: new StringDigester('<h2 class="wp-block-heading">', '</figure>'),
     })
   }
   function phase2(input) {
     return new Promise(resolve => {
       const text = fs.readFileSync(input).toString()
-      const rgx = /^.*(<img.*\/>).*$/
-      const data = rgx.exec(text)[1]
-      fs.writeFileSync('js/rabbit/enigma-data.js', `const enigmaData = '${data}'`)
+      const regex = /srcset="(?<sources>.*?)"/
+      const { sources } = regex.exec(text).groups
+      const data = sources.split(',')
+        .map(it => it.trim().split(' '))
+        .map(it => ({ link: it[0], resolution: +it[1].replace('w', '') }))
+        .sort((a, b) => a.resolution - b.resolution)
+        .filter(it => it.resolution > 300)[0]
+      fs.writeFileSync(`js/rabbit/enigma-data.js`, `const enigmaData = ${JSON.stringify(data, null, 2)}`)
       resolve()
     })
   }
