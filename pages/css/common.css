@@ -30,21 +30,22 @@ body {
   border-top-color: var(--nav-color-active);
 }
 
-#nav>p {
+#nav p {
   display: block;
   color: white;
   margin: 0;
   padding: var(--space) var(--space2);
   text-decoration: none;
   text-wrap: nowrap;
+  white-space: pre;
 }
 
-#nav>p.active {
+#nav p[active] {
   background-color: var(--nav-color-active);
   color: white;
 }
 
-#nav>p:hover:not(.active) {
+#nav p:hover {
   background-color: #555;
   color: white;
 }
@@ -62,6 +63,25 @@ body {
   flex-grow: 1;
   overflow: scroll;
   padding: 1em;
+}
+
+.expandable {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.expandable-button::before {
+  content: '\002B';
+  margin-right: .5em;
+}
+
+.expandable-button[expanded]:before {
+  content: "\2212";
+}
+
+[no-transition] {
+  transition: unset;
 }
 
 @media screen and (max-width: 600px) {
