@@ -149,14 +149,15 @@
       let position = 0
       let elementPosition = xDirection ? +left.replace('px', '') : +top.replace('px', '')
       let movementRegion = { min: 0, max: 0 }
-      element.addEventListener('mousedown', onMovementStarted)
+      element.addEventListener('touchstart', e => e.preventDefault())
+      element.addEventListener('pointerdown', onMovementStarted)
 
       function onMovementStarted(event) {
         disableTransition()
         position = positionFromEvent(event)
         calculateMovementRegion()
-        window.addEventListener('mousemove', onMove)
-        window.addEventListener('mouseup', onMovementEnded)
+        window.addEventListener('pointermove', onMove)
+        window.addEventListener('pointerup', onMovementEnded)
       }
       function onMove(event) {
         const d = xDirection ? event.clientX - position.x : event.clientY - position.y
@@ -168,9 +169,9 @@
         )
         updatePosition()
       }
-      function onMovementEnded() {
-        window.removeEventListener('mousemove', onMove)
-        window.removeEventListener('mouseup', onMovementEnded)
+      function onMovementEnded(event) {
+        window.removeEventListener('pointermove', onMove)
+        window.removeEventListener('pointerup', onMovementEnded)
         enableTransition()
         roundPosition()
         checkKeyPosition()
@@ -201,7 +202,6 @@
           movementRegion.minPx = movementRegion.min * (unit.y + gap) + gap - 2
           movementRegion.maxPx = movementRegion.max * (unit.y + gap) + gap - 2
         }
-        // console.log(`movementRegion: ${JSON.stringify(movementRegion, null, 2)}`)
       }
       function updatePosition() {
         const newPosition = (elementPosition + 1) + "px"
