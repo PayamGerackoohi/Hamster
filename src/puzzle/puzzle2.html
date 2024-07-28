@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Puzzle 2024-07-27</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- <link href="css/common.css" rel="stylesheet">
+  <link href="css/puzzle.css" rel="stylesheet">
+  <script src="js/nav.js" defer></script>
+  <script src="js/puzzle/data.js"></script> -->
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      height: 100vh;
+      background-color: #00f2;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #container {
+      width: 600px;
+      height: 600px;
+      background-color: #f002;
+      position: relative;
+    }
+
+    .box {
+      position: absolute;
+    }
+
+    .red {
+      background-color: red;
+    }
+
+    .green {
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+
+  <body>
+    <div id="container"> </div>
+  </body>
+  <script>
+    const containerEl = document.getElementById('container')
+    const container = {
+      size: { width: 600, height: 600 },
+      grid: { u: 6, v: 6 },
+      unit() {
+        return {
+          x: this.size.width / this.grid.u,
+          y: this.size.height / this.grid.v,
+        }
+      },
+    }
+    const unit = container.unit()
+    let blocks = [
+      { x: 0, y: 0, h: 2 },
+      { x: 1, y: 1, v: 2 },
+      // { x: 2, y: 2, h: 2 },
+      // { x: 2, y: 2, v: 2 },
+    ]
+
+    draw()
+    function draw() {
+      blocks.forEach(({ x, y, h, v }, i) => {
+        const boxEl = containerEl.appendChild(document.createElement('div'))
+        boxEl.classList.add('box', h ? 'green' : 'red')
+        boxEl.style.left = `${x * unit.x}px`
+        boxEl.style.top = `${y * unit.y}px`
+        boxEl.style.width = `${(h || 1) * unit.x}px`
+        boxEl.style.height = `${(v || 1) * unit.y}px`
+        observeMovement(i, boxEl)
+      })
+    }
+
+    function observeMovement(index, element) {
+      const { left, top } = getComputedStyle(element)
+      const xDirection = element.classList.contains('green')
+      let position = 0
+      let elementPosition = xDirection ? +left.replace('px', '') : +top.replace('px', '')
+      let movementRegion = { min: 0, max: 0 }
+      const maxPosition = xDirection ?
+        container.size.width - blocks[index].h * unit.x :
+        container.size.height - blocks[index].v * unit.y
+
+      let onStartMovement = event => {
+        disableTransition()
+        position = positionFromEvent(event)
+        calculateMovementRegion()
+        document.addEventListener('mousemove', onMove)
+        document.addEventListener('mouseup', removeHandlers)
+      }
+
+      let onMove = event => {
+        const d = xDirection ? event.clientX - position.x : event.clientY - position.y
+        position = positionFromEvent(event)
+        // TODO
+        elementPosition = Math.max(0, Math.min(elementPosition + d, maxPosition))
+        updatePosition()
+      }
+
+      let removeHandlers = () => {
+        document.removeEventListener('mousemove', onMove)
+        document.removeEventListener('mouseup', removeHandlers)
+        enableTransition()
+        roundPosition()
+      }
+
+      element.addEventListener('mousedown', onStartMovement)
+
+      function calculateMovementRegion() {
+        movementRegion = { min: 0, max: container.grid.u - h }
+        blocks.forEach((block, i) => {
+          if (i !== index) {
+            const { x, y, h, v } = blocks[index]
+            if (block.y <= y && block.y + (v || 1) > y) {
+              if (block.x < x) {
+                movementRegion.min = Math.max(movementRegion.min, block.x + (block.h || 1))
+              }
+              else {
+                movementRegion.max = Math.max(movementRegion.min, block.x + (block.h || 1))
+                  // TODO
+                  /;
+              }
+            }
+          }
+        })
+      }
+      function updatePosition() {
+        const newPosition = elementPosition + "px"
+        if (xDirection)
+          element.style.left = newPosition
+        else
+          element.style.top = newPosition
+      }
+      function positionFromEvent({ clientX, clientY }) {
+        return { x: clientX, y: clientY }
+      }
+      function disableTransition() {
+        element.style.transition = 'unset'
+      }
+      function enableTransition() {
+        element.style.transition = '.3s'
+      }
+      function roundPosition() {
+        elementPosition = xDirection ?
+          round(elementPosition) :
+          round(elementPosition)
+        updatePosition()
+        updateBlockCoord()
+
+        function updateBlockCoord() {
+          if (xDirection)
+            blocks[index].x = elementPosition / unit.x
+          else
+            blocks[index].y = elementPosition / unit.y
+        }
+        function round(value) {
+          const dimension = getDimension()
+          // TODO
+          const max = xDirection ?
+            container.grid.u - blocks[index].h :
+            container.grid.v - blocks[index].v
+          const r = Math.round(value / dimension)
+          return Math.max(0, Math.min(r, max)) * dimension
+        }
+        function getDimension() {
+          return dimension = xDirection ? unit.x : unit.y
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
