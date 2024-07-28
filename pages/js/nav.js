@@ -20,8 +20,12 @@ const navItems = [
     ref: 'combo.html'
   },
   {
-    name: 'Puzzle',
-    ref: 'puzzle.html'
+    name: 'Puzzle Solution',
+    ref: 'puzzle-solution.html'
+  },
+  {
+    name: 'Puzzle Practice',
+    ref: 'puzzle-practice.html'
   },
   {
     name: 'Rocky Rabbit',

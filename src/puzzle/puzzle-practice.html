@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Puzzle 2024-07-28</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="css/common.css" rel="stylesheet">
+  <link href="css/puzzle-practice.css" rel="stylesheet">
+  <script src="js/nav.js" defer></script>
+  <script src="js/puzzle/data.js"></script>
+</head>
+
+<body>
+  <div id="nav" page="Puzzle"></div>
+  <div id="content">
+    <div id="timer">
+      <p>⏱️</p>
+      <p id="time"></p>
+    </div>
+    <div id="container">
+      <canvas id="canvas"> </canvas>
+      <div id="block">
+      </div>
+    </div>
+  </div>
+  <script>
+    const containerEl = document.getElementById('container')
+    const blockEl = document.getElementById('block')
+    const canvasEl = document.getElementById('canvas')
+    const timeEl = document.getElementById('time')
+
+    let { time, blocks, target } = puzzleData
+    let isPlaying = true
+    const container = {
+      size: { width: 0, height: 0 },
+      grid: { u: 6, v: 6 },
+      gap: 10,
+      unit() {
+        return {
+          x: (this.size.width - this.gap) / this.grid.u - this.gap,
+          y: (this.size.height - this.gap) / this.grid.v - this.gap,
+        }
+      },
+    }
+    let unit = 0
+
+    observeWindowSize()
+    start()
+
+    function start() {
+      showTime()
+      tick()
+    }
+    function tick() {
+      if (isPlaying) {
+        setTimeout(() => {
+          time -= 1
+          if (time < 0)
+            alert('Timeup')
+          else {
+            showTime()
+            tick()
+          }
+        }, 1000)
+      }
+      else
+        alert('Win')
+    }
+    function showTime() {
+      timeEl.textContent = `00:${time.toString().padStart(2, '0')}`
+    }
+    function observeWindowSize() {
+      onSizeChanged()
+      window.onresize = onSizeChanged
+    }
+    function onSizeChanged() {
+      updateCanvasSize({ size: 0 })
+      updateDimension(containerEl.getBoundingClientRect())
+      updateCanvasSize(container.size)
+      draw()
+    }
+    function updateCanvasSize({ size }) {
+      blockEl.style.width = blockEl.style.height = `${size}px`
+      canvasEl.width = canvasEl.height = size
+      unit = container.unit()
+    }
+    function updateDimension({ width, height }) {
+      const size = Math.min(width, height)
+      container.size = {
+        width: size,
+        height: size,
+        size,
+        blockSize: size / 6
+      }
+    }
+    function draw() {
+      drawGrid()
+      drawTarget()
+      drawBlocks()
+    }
+    function drawTarget() {
+      const { gap } = container
+      const canvas = canvasEl.getContext('2d')
+      canvas.beginPath()
+      canvas.fillStyle = '#ff04'
+      const x = target.x * (unit.x + gap) + gap
+      const y = target.y * (unit.y + gap) + gap
+      const w = 2 * unit.x + gap
+      const h = unit.y
+      canvas.fillRect(x, y, w, h)
+      canvas.stroke()
+    }
+    function drawGrid() {
+      const canvas = canvasEl.getContext('2d')
+      canvas.beginPath()
+      const maxX = container.size.width
+      const maxY = container.size.height
+      canvas.lineWidth = container.gap
+      canvas.strokeStyle = '#3F3F3F'
+      const offset = container.gap / 2
+      for (let i = 0, x = 0; i <= container.grid.u; i++, x += unit.x + container.gap) {
+        canvas.moveTo(offset + x, 0)
+        canvas.lineTo(offset + x, maxY)
+      }
+      for (let i = 0, y = 0; i <= container.grid.v; i++, y += unit.y + container.gap) {
+        canvas.moveTo(0, offset + y)
+        canvas.lineTo(maxX, offset + y)
+      }
+      canvas.stroke()
+    }
+    function drawBlocks() {
+      blockEl.innerHTML = ''
+      blocks.forEach(({ x, y, h, v }, i) => {
+        const boxEl = blockEl.appendChild(document.createElement('div'))
+        boxEl.classList.add('box', h ? 'horizontal' : 'vertical')
+        i === 0 && boxEl.classList.add('key')
+        const { gap } = container
+        boxEl.style.left = `${x * (unit.x + gap) + gap - 1}px`
+        boxEl.style.top = `${y * (unit.y + gap) + gap - 1}px`
+        boxEl.style.width = `${(h || 1) * (unit.x + gap) - gap}px`
+        boxEl.style.height = `${(v || 1) * (unit.y + gap) - gap}px`
+        observeMovement(i, boxEl)
+      })
+    }
+    function observeMovement(id, element) {
+      const { left, top } = getComputedStyle(element)
+      const xDirection = element.classList.contains('horizontal')
+      let position = 0
+      let elementPosition = xDirection ? +left.replace('px', '') : +top.replace('px', '')
+      let movementRegion = { min: 0, max: 0 }
+      element.addEventListener('mousedown', onMovementStarted)
+
+      function onMovementStarted(event) {
+        disableTransition()
+        position = positionFromEvent(event)
+        calculateMovementRegion()
+        window.addEventListener('mousemove', onMove)
+        window.addEventListener('mouseup', onMovementEnded)
+      }
+      function onMove(event) {
+        const d = xDirection ? event.clientX - position.x : event.clientY - position.y
+        position = positionFromEvent(event)
+        elementPosition = Math.max(
+          movementRegion.minPx, Math.min(
+            elementPosition + d, movementRegion.maxPx
+          )
+        )
+        updatePosition()
+      }
+      function onMovementEnded() {
+        window.removeEventListener('mousemove', onMove)
+        window.removeEventListener('mouseup', onMovementEnded)
+        enableTransition()
+        roundPosition()
+        checkKeyPosition()
+      }
+      function calculateMovementRegion() {
+        const { x, y, h, v } = blocks[id]
+        const { gap } = container
+        if (xDirection) {
+          movementRegion = { min: 0, max: container.grid.u - h }
+          blocks.forEach((block, i) => {
+            if (i !== id && block.y <= y && block.y + (block.v || 1) > y)
+              if (block.x < x)
+                movementRegion.min = Math.max(movementRegion.min, block.x + (block.h || 1))
+              else
+                movementRegion.max = Math.min(movementRegion.max, block.x - h)
+          })
+          movementRegion.minPx = movementRegion.min * (unit.x + gap) + gap - 2
+          movementRegion.maxPx = movementRegion.max * (unit.x + gap) + gap - 2
+        } else {
+          movementRegion = { min: 0, max: container.grid.v - v }
+          blocks.forEach((block, i) => {
+            if (i !== id && block.x <= x && block.x + (block.h || 1) > x)
+              if (block.y < y)
+                movementRegion.min = Math.max(movementRegion.min, block.y + (block.v || 1))
+              else
+                movementRegion.max = Math.min(movementRegion.max, block.y - v)
+          })
+          movementRegion.minPx = movementRegion.min * (unit.y + gap) + gap - 2
+          movementRegion.maxPx = movementRegion.max * (unit.y + gap) + gap - 2
+        }
+        // console.log(`movementRegion: ${JSON.stringify(movementRegion, null, 2)}`)
+      }
+      function updatePosition() {
+        const newPosition = (elementPosition + 1) + "px"
+        if (xDirection)
+          element.style.left = newPosition
+        else
+          element.style.top = newPosition
+      }
+      function positionFromEvent({ clientX, clientY }) {
+        return { x: clientX, y: clientY }
+      }
+      function disableTransition() {
+        element.style.transition = 'unset'
+      }
+      function enableTransition() {
+        element.style.transition = '.1s'
+      }
+      function roundPosition() {
+        const { index, px } = round(elementPosition)
+        elementPosition = px
+        updatePosition()
+        updateBlockCoord(index)
+
+        function updateBlockCoord(index) {
+          if (xDirection)
+            blocks[id].x = index
+          else
+            blocks[id].y = index
+        }
+        function round(value) {
+          const dimension = getDimension()
+          const { gap } = container
+          const index = Math.round((value - gap) / (dimension + gap))
+          const px = index * (dimension + gap) + gap - 2
+          return { index, px }
+        }
+      }
+      function getDimension() {
+        return xDirection ? unit.x : unit.y
+      }
+      function checkKeyPosition() {
+        const key = blocks[0]
+        if (key && key.x === target.x && key.y === target.y)
+          isPlaying = false
+      }
+    }
+  </script>
+</body>
+
+</html>

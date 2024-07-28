@@ -33,7 +33,7 @@
     let step = 0
     let dimension = {}
     let fontInfo = {}
-    const { blocks, key, operations, guides } = puzzleData
+    const { blocks, operations, guides } = puzzleData
 
     observeKeyPress()
     observeWindowSize()
@@ -112,9 +112,9 @@
       stepsEl.textContent = `${step}/${operations.length}`
     }
     function applyOperation(operation) {
-      const block = operation.b === undefined ? key : blocks[operation.b]
-      if (operation.h) block.p[0] += operation.h
-      if (operation.v) block.p[1] += operation.v
+      const block = operation.b === undefined ? blocks[0] : blocks[operation.b]
+      if (operation.h) block.x += operation.h
+      if (operation.v) block.y += operation.v
     }
     function inverseOperation(operation) {
       return { ...operation, h: -operation.h, v: -operation.v }
@@ -124,7 +124,6 @@
       clearCanvas()
       drawBlocks()
       drawGuides()
-      drawKey()
     }
     function disableIf(element, condition) {
       condition ?
@@ -141,10 +140,10 @@
     function toCanvasCoord(block) {
       const { blockSize } = dimension
       return [
-        block.p[0] * blockSize,
-        block.p[1] * blockSize,
-        block.h * blockSize,
-        block.v * blockSize,
+        block.x * blockSize,
+        block.y * blockSize,
+        (block.h || 1) * blockSize,
+        (block.v || 1) * blockSize,
       ]
     }
     function textCoord(text, x, y, h, v) {
@@ -154,31 +153,23 @@
         y + v / 2 + (actualBoundingBoxAscent - actualBoundingBoxDescent) / 2,
       ]
     }
-    function drawKey() {
-      canvas.beginPath()
-      const [x, y, h, v] = toCanvasCoord(key)
-      canvas.fillStyle = 'yellow'
-      canvas.fillRect(x, y, h, v)
-      canvas.rect(x, y, h, v)
-      canvas.stroke()
-    }
     function drawBlocks() {
       canvas.beginPath()
-      let index = 0
-      blocks.forEach(block => {
+      blocks.forEach((block, index) => {
         const [x, y, h, v] = toCanvasCoord(block)
-        canvas.fillStyle = (v > h) ? 'red' : 'green'
-        canvas.fillRect(x, y, h, v)
+        const hh = h || 1
+        const vv = v || 1
+        canvas.fillStyle = (index === 0) ? 'yellow' : (vv > hh) ? 'red' : 'green'
+        canvas.fillRect(x, y, hh, vv)
+        canvas.rect(x, y, hh, vv)
 
-        canvas.rect(x, y, h, v)
-
-        const i = index.toString()
-        canvas.font = fontInfo.style
-        canvas.fillStyle = 'black'
-        const [tx, ty] = textCoord(i, x, y, h, v)
-        canvas.fillText(i, tx, ty)
-
-        index += 1
+        if (index !== 0) {
+          const i = index.toString()
+          canvas.font = fontInfo.style
+          canvas.fillStyle = 'black'
+          const [tx, ty] = textCoord(i, x, y, hh, vv)
+          canvas.fillText(i, tx, ty)
+        }
       })
       canvas.stroke()
     }
@@ -205,7 +196,7 @@
       canvas.stroke()
     }
     function drawGuide(xx, yy, text) {
-      const [x, y, h, v] = toCanvasCoord({ p: [xx, yy], h: 1, v: 1 })
+      const [x, y, h, v] = toCanvasCoord({ x: xx, y: yy, h: 1, v: 1 })
       canvas.fillStyle = 'lightgray'
       canvas.fillRect(x, y, h, v)
 

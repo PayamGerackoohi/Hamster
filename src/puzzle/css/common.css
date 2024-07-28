@@ -1,1 +1,5 @@
 @import '../../../pages/css/common.css';
+
+#nav {
+  display: none;
+}

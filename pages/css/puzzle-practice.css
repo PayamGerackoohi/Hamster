@@ -1,0 +1,66 @@
+body {
+  background-color: #202020;
+}
+
+#content {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#block {
+  position: absolute;
+}
+
+#container>canvas {
+  image-rendering: pixelated;
+  position: absolute;
+  background-color: #282828;
+  border: unset;
+}
+
+.box {
+  position: absolute;
+  margin: 1px;
+}
+
+.vertical {
+  background-color: red;
+}
+
+.horizontal {
+  background-color: green;
+}
+
+.key {
+  background-color: yellow;
+}
+
+#timer {
+  display: flex;
+  width: fit-content;
+  margin: 1em;
+  background-color: #282A2F;
+  border-radius: 2em;
+}
+
+#timer>p {
+  color: white;
+  padding: .5em;
+  margin: 0;
+}
+
+#timer>*+* {
+  padding-left: 0em !important;
+}
