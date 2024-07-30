@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 path=`dirname $0`
 cd ${path}/../../src/rabbit

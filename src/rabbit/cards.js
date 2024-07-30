@@ -42,7 +42,7 @@ function extract(input) {
     })
   }
   function phase3(link) {
-    console.log(link)
+    // console.log(link)
     return downlaod({
       link,
       output: `${tempDir}phase3.html`
@@ -60,8 +60,8 @@ function extract(input) {
       const sublinkRegex = /data-lazy-src="(?<sublink>.*?)"/
       const descriptionRegex = /(?<description><ul>.*?<\/ul>)/s
       const text = fs.readFileSync(file).toString()
-      const { sublink } = text.match(sublinkRegex).groups
-      const { description } = text.match(descriptionRegex).groups
+      const { sublink } = text.match(sublinkRegex)?.groups || {}
+      const { description } = text.match(descriptionRegex)?.groups || {}
       const data = {
         img: `https://nobitex.ir/mag/${sublink}`,
         description,

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Puzzle 2024-07-28</title>
+  <title>Puzzle 2024-07-30</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="css/common.css" rel="stylesheet">
   <link href="css/puzzle.css" rel="stylesheet">
@@ -24,21 +24,30 @@
     </div>
   </div>
   <script defer>
+    const dev = false
     const canvasHolderEl = document.getElementById("canvas-holder")
     const canvasEl = document.getElementById("canvas")
     const canvas = canvasEl.getContext("2d")
     const previousEl = document.getElementById("previous")
     const nextEl = document.getElementById("next")
     const stepsEl = document.getElementById("steps")
-    let step = 0
+    const { blocks, operations, guides } = puzzleData
     let dimension = {}
     let fontInfo = {}
-    const { blocks, operations, guides } = puzzleData
+    let step = 0
 
+    devOperations()
     observeKeyPress()
     observeWindowSize()
     updateSteps()
 
+    function devOperations() {
+      if (dev) {
+        step = operations.length
+        for (let s = 0; s < step; s += 1)
+          applyOperation(operations[s])
+      }
+    }
     function observeKeyPress() {
       document.addEventListener('keydown', e => {
         switch (e.key) {

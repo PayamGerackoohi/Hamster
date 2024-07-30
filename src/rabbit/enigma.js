@@ -56,7 +56,7 @@ function extract(input) {
   function phase5(input) {
     return new Promise(resolve => {
       const regex = /data-lazy-src="(?<sublink>.*?)"/
-      const { sublink } = fs.readFileSync(input).toString().match(regex).groups
+      const { sublink } = fs.readFileSync(input).toString().match(regex)?.groups || {}
       const data = { link: `https://nobitex.ir/mag/${sublink}` }
       fs.writeFileSync(
         `js/rabbit/enigma-data.js`,

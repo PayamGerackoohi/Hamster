@@ -1,3 +1,4 @@
+#!/bin/sh
 minify() {
   html-minifier -o $1 $2 \
   --collapse-whitespace \

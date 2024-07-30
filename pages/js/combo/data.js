@@ -1,1 +1,1 @@
-const data = [{"group":"Specials","card":"Apps Center Listing"},{"group":"Specials","card":"Web3 Academy Launch"},{"group":"Web3","card":"Grants for Developers"}]
+const data = [{"group":"Specials","card":"Hamster Green Energy"},{"group":"Specials","card":"NFT Collection Launch"},{"group":"Web3","card":"NFT Metaverse"}]

@@ -1,0 +1,13 @@
+{
+	"name": "hamster",
+	"version": "1.0.0",
+	"description": "Hamster",
+	"author": "PayamGr",
+	"main": "server.js",
+	"scripts": {
+		"start": "clear && printf '\\e[3J';node server.js"
+	},
+	"dependencies": {
+		"express": "^4.16.1"
+	}
+}
