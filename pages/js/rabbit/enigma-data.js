@@ -1,1 +1,1 @@
-const enigmaData = { "link": "https://malikhabar.com/wp-content/uploads/2024/07/Rocky-Rabbit-Enigma-Phrase-Codes_29-July_malikhabar.jpg" }
+const enigmaData = { "link": "https://nobitex.ir/mag/wp-content/uploads//2024/07/telegram-cloud-photo-size-4-5857405630564910715-x.jpg" }

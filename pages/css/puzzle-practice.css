@@ -26,8 +26,15 @@ body {
 #container>canvas {
   image-rendering: pixelated;
   position: absolute;
-  background-color: #282828;
   border: unset;
+}
+
+#container>#canvas {
+  background-color: #282828;
+}
+
+#container>#overlay-canvas {
+  pointer-events: none;
 }
 
 .box {

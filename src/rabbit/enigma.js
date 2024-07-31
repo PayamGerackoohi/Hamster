@@ -50,7 +50,7 @@ function extract(input) {
     return extractFromFile({
       input,
       output: `${tempDir}phase4.html`,
-      digester: new StringDigester('<figure class="aligncenter size-large', '</figure>')
+      digester: new StringDigester('<figure class="aligncenter', '</figure>')
     })
   }
   function phase5(input) {
