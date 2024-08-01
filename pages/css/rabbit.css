@@ -4,7 +4,7 @@ img {
 
 .supersets {
   width: fit-content;
-  direction: rtl;
+  /* direction: rtl; */
 }
 
 @media screen and (max-width: 600px) {

@@ -1,1 +1,1 @@
-const cardData = { "img": "https://nobitex.ir/mag/wp-content/uploads//2024/07/telegram-cloud-photo-size-4-5857144144365995262-y-1024x546.jpg" }
+const cardData = { "img": "https://nobitex.ir/mag/wp-content/uploads//2024/07/image-361.png", "description": "<ul><li>Figher > Claim > Bodyweight Training</li><li>Tournamets > Ember Tournaments</li><li>Coach > Claim > Psychological Support Practice</li></ul>" }
