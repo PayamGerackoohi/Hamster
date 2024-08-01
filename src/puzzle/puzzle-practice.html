@@ -14,9 +14,12 @@
 <body>
   <div id="nav" page="Puzzle -> Practice"></div>
   <div id="content">
-    <div id="timer">
-      <p>⏱️</p>
-      <p id="time"></p>
+    <div id="status-bar">
+      <div id="timer">
+        <p>⏱️</p>
+        <p id="time"></p>
+      </div>
+      <button id="refresh-button" class="ripple" onclick="refresh()">↺</button>
     </div>
     <div id="container">
       <canvas id="canvas"></canvas>
@@ -26,14 +29,14 @@
     </div>
   </div>
   <script>
-    // TODO add refresh button
     const containerEl = document.getElementById('container')
     const blockEl = document.getElementById('block')
     const canvasEl = document.getElementById('canvas')
     const overlayCanvasEl = document.getElementById('overlay-canvas')
     const timeEl = document.getElementById('time')
+    const refreshButtonEl = document.getElementById('refresh-button')
 
-    let { time, blocks, target } = puzzleData
+    const { time, blocks, target } = puzzleData
     let isPlaying = true
     const container = {
       size: { width: 0, height: 0 },
@@ -47,23 +50,59 @@
       },
     }
     let unit = 0
+    let threadId = 0
+    let timeoutId
 
-    observeWindowSize()
-    start()
+    main()
 
-    function start() {
-      showTime()
-      tick()
+    function main() {
+      this.time
+      this.blocks = JSON.parse(JSON.stringify(blocks))
+      resetTime()
+      observeWindowSize()
+      start()
     }
-    function tick() {
+    function resetTime() {
+      this.time = time
+      showTime()
+    }
+    function start() {
+      setTimeout(showRefreshButton, 1000)
+      tick(threadId)
+    }
+    function showRefreshButton() {
+      refreshButtonEl.removeAttribute('hide')
+    }
+    function hideRefreshButton() {
+      refreshButtonEl.setAttribute('hide', '')
+    }
+    function refresh() {
+      hideRefreshButton()
+      stopTicking()
+      resetState()
+      this.blocks = JSON.parse(JSON.stringify(blocks))
+      draw()
+      start()
+    }
+    function stopTicking() {
+      threadId += 1
+      clearTimeout(timeoutId)
+    }
+    function resetState() {
+      isPlaying = true
+      resetTime()
+    }
+    function tick(id) {
+      if (id !== threadId) return
       if (isPlaying) {
-        setTimeout(() => {
-          time -= 1
-          if (time < 0)
+        timeoutId = setTimeout(() => {
+          if (id !== threadId) return
+          this.time -= 1
+          if (this.time < 0)
             alert('Timeup')
           else {
             showTime()
-            tick()
+            tick(id)
           }
         }, 1000)
       }
@@ -71,7 +110,12 @@
         alert('Win')
     }
     function showTime() {
-      timeEl.textContent = `00:${time.toString().padStart(2, '0')}`
+      let text = '01:00'
+      if (this.time === 60)
+        text = '01:00'
+      else
+        text = `00:${this.time.toString().padStart(2, '0')}`
+      timeEl.textContent = text
     }
     function observeWindowSize() {
       onSizeChanged()
@@ -106,6 +150,7 @@
     function drawTarget() {
       const { gap } = container
       const canvas = overlayCanvasEl.getContext('2d')
+      canvas.clearRect(0, 0, overlayCanvasEl.width, overlayCanvasEl.height)
       canvas.beginPath()
       canvas.strokeStyle = 'purple'
       canvas.lineWidth = 5
@@ -118,6 +163,7 @@
     }
     function drawGrid() {
       const canvas = canvasEl.getContext('2d')
+      canvas.clearRect(0, 0, canvasEl.width, canvasEl.height)
       canvas.beginPath()
       const maxX = container.size.width
       const maxY = container.size.height
@@ -136,7 +182,7 @@
     }
     function drawBlocks() {
       blockEl.innerHTML = ''
-      blocks.forEach(({ x, y, h, v }, i) => {
+      this.blocks.forEach(({ x, y, h, v }, i) => {
         const boxEl = blockEl.appendChild(document.createElement('div'))
         boxEl.classList.add('box', h ? 'horizontal' : 'vertical')
         i === 0 && boxEl.classList.add('key')
@@ -182,11 +228,11 @@
         checkKeyPosition()
       }
       function calculateMovementRegion() {
-        const { x, y, h, v } = blocks[id]
+        const { x, y, h, v } = this.blocks[id]
         const { gap } = container
         if (xDirection) {
           movementRegion = { min: 0, max: container.grid.u - h }
-          blocks.forEach((block, i) => {
+          this.blocks.forEach((block, i) => {
             if (i !== id && block.y <= y && block.y + (block.v || 1) > y)
               if (block.x < x)
                 movementRegion.min = Math.max(movementRegion.min, block.x + (block.h || 1))
@@ -197,7 +243,7 @@
           movementRegion.maxPx = movementRegion.max * (unit.x + gap) + gap - 2
         } else {
           movementRegion = { min: 0, max: container.grid.v - v }
-          blocks.forEach((block, i) => {
+          this.blocks.forEach((block, i) => {
             if (i !== id && block.x <= x && block.x + (block.h || 1) > x)
               if (block.y < y)
                 movementRegion.min = Math.max(movementRegion.min, block.y + (block.v || 1))
@@ -232,9 +278,9 @@
 
         function updateBlockCoord(index) {
           if (xDirection)
-            blocks[id].x = index
+            this.blocks[id].x = index
           else
-            blocks[id].y = index
+            this.blocks[id].y = index
         }
         function round(value) {
           const dimension = getDimension()
@@ -248,7 +294,7 @@
         return xDirection ? unit.x : unit.y
       }
       function checkKeyPosition() {
-        const key = blocks[0]
+        const key = this.blocks[0]
         if (key && key.x === target.x && key.y === target.y)
           isPlaying = false
       }

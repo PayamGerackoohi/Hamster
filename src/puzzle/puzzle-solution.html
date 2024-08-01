@@ -31,16 +31,58 @@
     const previousEl = document.getElementById("previous")
     const nextEl = document.getElementById("next")
     const stepsEl = document.getElementById("steps")
-    const { blocks, operations, guides } = puzzleData
+    const { blocks, operations } = puzzleData
+    const guides = makeGuides()
     let dimension = {}
     let fontInfo = {}
     let step = 0
 
-    devOperations()
-    observeKeyPress()
-    observeWindowSize()
-    updateSteps()
+    main()
 
+    function main() {
+      this.blocks = blocks
+      devOperations()
+      observeKeyPress()
+      observeWindowSize()
+      updateSteps()
+    }
+    function cloneBlocks() {
+      return JSON.parse(JSON.stringify(blocks))
+    }
+    function makeGuides() {
+      let guides = []
+      this.blocks = cloneBlocks()
+      operations.forEach(op => {
+        const block = op.b ? this.blocks[op.b] : this.blocks[0]
+        let x = block.x
+        let y = block.y
+        let h = 0
+        let v = 0
+        let d = 1
+        if (op.h) {
+          if (op.h > 0) {
+            h = op.h
+            x += block.h
+          } else {
+            d = -1
+            h = -op.h
+            x += op.h
+          }
+        } else if (op.v) {
+          if (op.v > 0) {
+            v = op.v
+            y += block.v
+          } else {
+            d = -1
+            v = -op.v
+            y += op.v
+          }
+        }
+        guides.push([x, y, h, v, d])
+        applyOperation(op)
+      })
+      return guides
+    }
     function devOperations() {
       if (dev) {
         step = operations.length
@@ -121,7 +163,7 @@
       stepsEl.textContent = `${step}/${operations.length}`
     }
     function applyOperation(operation) {
-      const block = operation.b === undefined ? blocks[0] : blocks[operation.b]
+      const block = operation.b === undefined ? this.blocks[0] : this.blocks[operation.b]
       if (operation.h) block.x += operation.h
       if (operation.v) block.y += operation.v
     }

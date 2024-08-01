@@ -1,3 +1,12 @@
+:root {
+  --button-color: #282A2F;
+  --hover-color: #43464e;
+  --active-color: #555963;
+  --shadow-color: #999;
+
+  --icon-size: 1.5em;
+}
+
 body {
   background-color: #202020;
 }
@@ -54,20 +63,59 @@ body {
   background-color: yellow;
 }
 
-#timer {
+#status-bar {
   display: flex;
   width: fit-content;
   margin: 1em;
+  align-items: center;
+}
+
+#status-bar>*+* {
+  margin-left: .5em;
+}
+
+#timer {
+  display: flex;
+  height: fit-content;
   background-color: #282A2F;
-  border-radius: 2em;
+  border-radius: var(--icon-size);
+  box-shadow: 0 0 2px var(--shadow-color);
+  padding-top: .5em;
+  padding-bottom: .5em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 #timer>p {
   color: white;
-  padding: .5em;
   margin: 0;
 }
 
 #timer>*+* {
-  padding-left: 0em !important;
+  padding-left: .5em;
+}
+
+#refresh-button {
+  display: flex;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  border-radius: var(--icon-size);
+  font-size: 1.75em;
+  padding: 0;
+  background-position: center;
+  background-color: var(--button-color);
+  box-shadow: 0 0 2px var(--shadow-color);
+  transition: .2s;
+  user-select: none;
+  padding-bottom: 6px;
+}
+
+#refresh-button[hide] {
+  scale: .4;
+  opacity: 0;
+  rotate: -360deg;
 }
