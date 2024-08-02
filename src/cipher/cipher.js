@@ -12,7 +12,6 @@ downlaod({
 function extract(input) {
   return phase1(input)
     .then(file => phase2(file))
-    .then(file => phase3(file))
 
   function phase1(input) {
     return extractFromFile(
@@ -24,17 +23,13 @@ function extract(input) {
     )
   }
   function phase2(input) {
-    return extractFromFile(
-      {
-        input,
-        output: 'temp/phase2.html',
-        digester: new StringDigester('<strong>', '<br>'),
-      }
-    )
-  }
-  function phase3(input) {
-    const code = fs.readFileSync(input).toString().replace('<br>', '')
-    const data = code.split('').map(c => ({ c, m: morse[c.toLowerCase()] }))
-    fs.writeFileSync('js/cipher/data.js', `const data = ${JSON.stringify(data)}`)
+    return new Promise(resolve => {
+      const text = fs.readFileSync(input).toString()
+      const regex = /<strong>(?<code>.*?)<\/strong>/
+      const { code } = regex.exec(text)?.groups || {}
+      const data = code.split('').map(c => ({ c, m: morse[c.toLowerCase()] }))
+      fs.writeFileSync('js/cipher/data.js', `const data = ${JSON.stringify(data)}`)
+      resolve()
+    })
   }
 }
