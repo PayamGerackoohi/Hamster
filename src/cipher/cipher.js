@@ -25,7 +25,7 @@ function extract(input) {
   function phase2(input) {
     return new Promise(resolve => {
       const text = fs.readFileSync(input).toString()
-      const regex = /<strong>(?<code>.*?)<\/strong>/
+      const regex = /<strong>[ <br>]*(?<code>.*?)[ <br>]*<\/strong>/
       const { code } = regex.exec(text)?.groups || {}
       const data = code.split('').map(c => ({ c, m: morse[c.toLowerCase()] }))
       fs.writeFileSync('js/cipher/data.js', `const data = ${JSON.stringify(data)}`)
