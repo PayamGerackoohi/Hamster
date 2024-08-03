@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+path=`dirname $0`
+src=src/rabbit/js/rabbit/
+
+cd ${path}/../../
+pushd ${src} > /dev/null
+node cards-add-description.js
+popd > /dev/null
+
+mv ${src}cards-data-with-description.js pages/js/rabbit/cards-data.js
