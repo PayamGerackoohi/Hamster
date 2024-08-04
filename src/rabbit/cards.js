@@ -42,7 +42,6 @@ function extract(input) {
     })
   }
   function phase3(link) {
-    // console.log(link)
     return downlaod({
       link,
       output: `${tempDir}phase3.html`
@@ -65,6 +64,7 @@ function extract(input) {
       const data = {
         img: `https://nobitex.ir/mag/${sublink}`,
         description,
+        isRtl: true,
       }
       fs.writeFileSync(`js/rabbit/cards-data.js`, `const cardData = ${JSON.stringify(data, null, 2)}`)
       resolve()
