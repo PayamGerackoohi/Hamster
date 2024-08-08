@@ -1,9 +1,9 @@
 const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../util/util')
 const fs = require('fs')
+
 let page = 1
 
 makeTempDir()
-
 downloadCards()
 
 function downloadCards() {
