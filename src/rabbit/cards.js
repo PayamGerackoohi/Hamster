@@ -2,14 +2,17 @@ const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../u
 const fs = require('fs')
 
 const tempDir = 'temp-cards/'
-makeTempDir(tempDir)
-let page = 0
+const MAX_PAGE = 10
+let page = 1
 
+makeTempDir(tempDir)
 downloadCards()
 
 function downloadCards() {
-  downlaod({
-    link: `https://nobitex.ir/mag/category/news/game/${page ? `page/${page}` : ''}`,
+  const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
+  console.log(`downloadCards: ${link}`)
+  return downlaod({
+    link,
     output: `${tempDir}original-${page}.html`,
   }).then(file => extract(file))
     .catch(err => console.log(err))
@@ -30,14 +33,17 @@ function extract(input) {
     })
   }
   function phase2(input) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const date = fs.readFileSync(input).toString().replace('">', '')
       if (date) {
         const link = `https://nobitex.ir/mag/news-rocky-rabbit-card-${date}`
         resolve(link)
       } else {
         page += 1
-        return downloadCards()
+        if (page < MAX_PAGE)
+          return downloadCards()
+        else
+          reject(`MAX_PAGE reached: ${MAX_PAGE}`)
       }
     })
   }

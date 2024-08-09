@@ -2,14 +2,17 @@ const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../u
 const fs = require('fs')
 
 const tempDir = 'temp-enigma/'
-makeTempDir(tempDir)
+const MAX_PAGE = 10
 let page = 1
 
+makeTempDir(tempDir)
 downloadEnigma()
 
 function downloadEnigma() {
-  downlaod({
-    link: `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`,
+  const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
+  console.log(`downloadEnigma: ${link}`)
+  return downlaod({
+    link,
     output: `${tempDir}original-${page}.html`
   }).then(file => extract(file))
     .catch(err => console.log(err))
@@ -30,13 +33,16 @@ function extract(input) {
     })
   }
   function phase2(file) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const link = fs.readFileSync(file).toString().replace('">', '')
       if (link)
         resolve(`https://nobitex.ir/mag/news-rocky-rabbit-enigma-${link}`)
       else {
         page += 1
-        downloadEnigma()
+        if (page < MAX_PAGE)
+          downloadEnigma()
+        else
+          reject(`MAX_PAGE reached: ${MAX_PAGE}`)
       }
     })
   }

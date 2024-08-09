@@ -1,14 +1,15 @@
 const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../util/util')
 const fs = require('fs')
 
+const MAX_PAGE = 10
 let page = 1
 
 makeTempDir()
 downloadCards()
 
 function downloadCards() {
-  const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}` : ''}`
-  console.log(`downloadCards: page: ${page}`)
+  const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
+  console.log(`downloadCards: ${page}`)
   downlaod({
     link,
     output: `temp/original-${page}.html`,
@@ -32,7 +33,7 @@ function extract(input) {
     )
   }
   function phase2(input) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const subLink = fs.readFileSync(input).toString().replace('">', '')
       if (subLink) {
         const link = `https://nobitex.ir/mag/news-hamster-kombat-cards-${subLink}`
@@ -40,7 +41,10 @@ function extract(input) {
         resolve(link)
       } else {
         page += 1
-        return downloadCards()
+        if (page < MAX_PAGE)
+          return downloadCards()
+        else
+          reject(`MAX_PAGE reached: ${MAX_PAGE}`)
       }
     })
   }
@@ -54,7 +58,7 @@ function extract(input) {
     return extractFromFile({
       input,
       output: 'temp/phase4.html',
-      digester: new StringDigester('<div class="wp-block-image">', '</ul>')
+      digester: new StringDigester('<figure class="wp-block-image size-full">', '</ul>')
     })
   }
   function phase5(input) {

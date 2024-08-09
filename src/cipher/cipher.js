@@ -2,15 +2,16 @@ const morse = require('../util/morse')
 const { makeTempDir, downlaod, extractFromFile, StringDigester } = require('../util/util')
 const fs = require('fs')
 
+const MAX_PAGE = 10
 let page = 1
 
 makeTempDir()
 downloadCipher()
 
 function downloadCipher() {
-  const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}` : ''}`
-  console.log(`DownloadCipher: page: ${page}`)
-  downlaod({
+  const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
+  console.log(`DownloadCipher: ${page}`)
+  return downlaod({
     link,
     output: `temp/original-${page}.html`,
   }).then(file => extract(file))
@@ -34,19 +35,17 @@ function extract(input) {
     )
   }
   function phase2(input) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const text = fs.readFileSync(input).toString().replace('">', '')
       if (text)
         resolve(`https://nobitex.ir/mag/news-hamster-kombat-morse-code-${text}`)
       else {
         page += 1
-        return downloadCipher()
+        if (page < MAX_PAGE)
+          return downloadCipher()
+        else
+          reject(`MAX_PAGE reached: ${MAX_PAGE}`)
       }
-      // const regex = /<strong>[ <br>]*(?<code>.*?)[ <br>]*<\/strong>/
-      //   const regex = /<strong>[ <br>]*(?<code>.*?)[ <br>]*<\/strong>/
-      //   const { code } = regex.exec(text)?.groups || {}
-      //   const data = code.split('').map(c => ({ c, m: morse[c.toLowerCase()] }))
-      //   fs.writeFileSync('js/cipher/data.js', `const data = ${JSON.stringify(data)}`)
     })
   }
   function phase3(link) {
