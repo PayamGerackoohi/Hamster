@@ -10,7 +10,7 @@ downloadCards()
 
 function downloadCards() {
   const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
-  console.log(`downloadCards: ${link}`)
+  console.log(`Supersets::download: ${link}`)
   return downlaod({
     link,
     output: `${tempDir}original-${page}.html`,
@@ -48,6 +48,7 @@ function extract(input) {
     })
   }
   function phase3(link) {
+    console.log(`Supersets::phase3: ${link}`)
     return downlaod({
       link,
       output: `${tempDir}phase3.html`

@@ -9,7 +9,7 @@ downloadCards()
 
 function downloadCards() {
   const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
-  console.log(`downloadCards: ${page}`)
+  console.log(`Combo::download: ${link}`)
   downlaod({
     link,
     output: `temp/original-${page}.html`,
@@ -49,6 +49,7 @@ function extract(input) {
     })
   }
   function phase3(link) {
+    console.log(`Combo::phase3: ${link}`)
     return downlaod({
       link,
       output: 'temp/phase3.html',
@@ -58,7 +59,7 @@ function extract(input) {
     return extractFromFile({
       input,
       output: 'temp/phase4.html',
-      digester: new StringDigester('<figure class="wp-block-image size-full">', '</ul>')
+      digester: new StringDigester('<figure class="wp-block-image', '</ul>')
     })
   }
   function phase5(input) {

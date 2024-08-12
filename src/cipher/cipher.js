@@ -10,7 +10,7 @@ downloadCipher()
 
 function downloadCipher() {
   const link = `https://nobitex.ir/mag/category/news/game/${page > 1 ? `page/${page}/` : ''}`
-  console.log(`DownloadCipher: ${page}`)
+  console.log(`Cipher::download: ${link}`)
   return downlaod({
     link,
     output: `temp/original-${page}.html`,
@@ -49,6 +49,7 @@ function extract(input) {
     })
   }
   function phase3(link) {
+    console.log(`Cipher::phase3: ${link}`)
     return downlaod({
       link,
       output: 'temp/phase3.html',
@@ -62,7 +63,8 @@ function extract(input) {
     })
   }
   function phase5(file) {
-    const text = fs.readFileSync(file).toString().replace('</code>', '')
+    const text = fs.readFileSync(file).toString().replace('</code>', '').replace('&nbsp;', '')
+    console.log(text)
     const regex = /(\w).*?/g
     const data = text.match(regex).map(c => ({ c, m: morse[c.toLowerCase()] }))
     fs.writeFileSync('js/cipher/data.js', `const data = ${JSON.stringify(data)}`)

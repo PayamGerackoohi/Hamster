@@ -2,9 +2,9 @@ const fs = require('fs')
 const vm = require('vm')
 
 const cardList = [
-  'Flexibility Training',
-  'Nutrition',
-  'Motivation and Su...',
+  'Venture Capital...',
+  'Morning',
+  'Punching Practice',
 ]
 
 const cards = {
@@ -78,6 +78,7 @@ const cards = {
         'Finance': [
           'Insurance Planning',
           'Financial Planning',
+          'Venture Capital Investments',
         ],
       },
       {
