@@ -1,0 +1,609 @@
+{
+  "version": 25,
+  "status": {
+    "balance": 626099088,
+    "level": "9",
+    "earnPerHour": 2330000,
+    "target": 1000000000
+  },
+  "upgrades": {
+    "Legal": [
+      {
+        "title": "Anti Money Loundering",
+        "value": 722,
+        "cost": 997000,
+        "level": 14
+      },
+      {
+        "title": "KYB",
+        "value": 155,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "KYC",
+        "value": 28,
+        "cost": 73000,
+        "level": 15
+      },
+      {
+        "title": "Legal Opinion",
+        "value": 155,
+        "cost": 333000,
+        "level": 14
+      },
+      {
+        "title": "License Asia",
+        "value": 892,
+        "cost": 799000,
+        "level": 13
+      },
+      {
+        "title": "License Australia",
+        "value": 1750,
+        "cost": 1661000,
+        "level": 14
+      },
+      {
+        "title": "License Europe",
+        "value": 1860,
+        "cost": 1661000,
+        "level": 14
+      },
+      {
+        "title": "License Nigeria",
+        "value": 438,
+        "cost": 498000,
+        "level": 14
+      },
+      {
+        "title": "License North America",
+        "value": 2310,
+        "cost": 1598000,
+        "level": 13
+      },
+      {
+        "title": "License Philippines",
+        "value": 14640,
+        "cost": 12110000,
+        "level": 12
+      },
+      {
+        "title": "License South America",
+        "value": 940,
+        "cost": 799000,
+        "level": 13
+      },
+      {
+        "title": "License UAE",
+        "value": 1440,
+        "cost": 1661000,
+        "level": 14
+      },
+      {
+        "title": "SEC Transparancy",
+        "value": 155,
+        "cost": 399000,
+        "level": 14
+      }
+    ],
+    "Markets": [
+      {
+        "title": "BTC Pairs",
+        "value": 103,
+        "cost": 83000,
+        "level": 14
+      },
+      {
+        "title": "Defi 2.0 Tokens",
+        "value": 103,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "Derivatives",
+        "value": 1280,
+        "cost": 831000,
+        "level": 14
+      },
+      {
+        "title": "ETH Pairs",
+        "value": 103,
+        "cost": 100000,
+        "level": 14
+      },
+      {
+        "title": "Fan Tokens",
+        "value": 2450,
+        "cost": 3323000,
+        "level": 14
+      },
+      {
+        "title": "GameFi Tokens",
+        "value": 180,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "Layer Zero Listing",
+        "value": 2170,
+        "cost": 1598000,
+        "level": 13
+      },
+      {
+        "title": "Margin Trading x10",
+        "value": 709,
+        "cost": 830743,
+        "level": 14
+      },
+      {
+        "title": "Margin Trading x20",
+        "value": 902,
+        "cost": 831000,
+        "level": 14
+      },
+      {
+        "title": "Margin Trading x30",
+        "value": 1380,
+        "cost": 2539000,
+        "level": 15
+      },
+      {
+        "title": "Margin Trading x50",
+        "value": 2840,
+        "cost": 3323000,
+        "level": 14
+      },
+      {
+        "title": "Meme Coins",
+        "value": 284,
+        "cost": 665000,
+        "level": 14
+      },
+      {
+        "title": "P2P Trading",
+        "value": 1010,
+        "cost": 1396000,
+        "level": 14
+      },
+      {
+        "title": "Shit Coins",
+        "value": 1520,
+        "cost": 1661000,
+        "level": 14
+      },
+      {
+        "title": "Staking",
+        "value": 1550,
+        "cost": 1163000,
+        "level": 14
+      },
+      {
+        "title": "Top 10 CMC Pairs",
+        "value": 206,
+        "cost": 332000,
+        "level": 14
+      },
+      {
+        "title": "Trading Bots",
+        "value": 470,
+        "cost": 336000,
+        "level": 13
+      },
+      {
+        "title": "Web3 Integration",
+        "value": 2040,
+        "cost": 2160000,
+        "level": 14
+      }
+    ],
+    "PR & Team": [
+      {
+        "title": "Antihacking Shield",
+        "value": 284,
+        "cost": 665000,
+        "level": 14
+      },
+      {
+        "title": "BisDev Team",
+        "value": 129,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "CEO",
+        "value": 316,
+        "cost": 4000000,
+        "level": 17
+      },
+      {
+        "title": "Coindesk",
+        "value": 206,
+        "cost": 332000,
+        "level": 14
+      },
+      {
+        "title": "Cointelegraph",
+        "value": 103,
+        "cost": 116000,
+        "level": 14
+      },
+      {
+        "title": "Compliance Officer",
+        "value": 270,
+        "cost": 283000,
+        "level": 12
+      },
+      {
+        "title": "Consensus Explorer Pass",
+        "value": 3620,
+        "cost": 3996000,
+        "level": 13
+      },
+      {
+        "title": "Data Center Tokyo",
+        "value": 14640,
+        "cost": 16146000,
+        "level": 12
+      },
+      {
+        "title": "Development Hub Mumbai",
+        "value": 9010,
+        "cost": 7266000,
+        "level": 12
+      },
+      {
+        "title": "Hamster Book",
+        "value": 180,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "Hamster Tube",
+        "value": 248,
+        "cost": 435000,
+        "level": 15
+      },
+      {
+        "title": "Hamstergram",
+        "value": 129,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "Influencers",
+        "value": 696,
+        "cost": 830000,
+        "level": 14
+      },
+      {
+        "title": "IT Team",
+        "value": 619,
+        "cost": 665000,
+        "level": 14
+      },
+      {
+        "title": "Leaderboards",
+        "value": 1810,
+        "cost": 3197000,
+        "level": 13
+      },
+      {
+        "title": "Marketing",
+        "value": 180,
+        "cost": 332000,
+        "level": 14
+      },
+      {
+        "title": "Mini Game",
+        "value": 2110,
+        "cost": 1713000,
+        "level": 11
+      },
+      {
+        "title": "Partnership Program",
+        "value": 180,
+        "cost": 166000,
+        "level": 14
+      },
+      {
+        "title": "Product Team",
+        "value": 258,
+        "cost": 332000,
+        "level": 14
+      },
+      {
+        "title": "Risk Management Team",
+        "value": 683,
+        "cost": 665000,
+        "level": 14
+      },
+      {
+        "title": "Security Audition",
+        "value": 258,
+        "cost": 997000,
+        "level": 14
+      },
+      {
+        "title": "Support Team",
+        "value": 180,
+        "cost": 249000,
+        "level": 14
+      },
+      {
+        "title": "TikTok",
+        "value": 258,
+        "cost": 249000,
+        "level": 14
+      },
+      {
+        "title": "Tokenomics Expert",
+        "value": 1210,
+        "cost": 799000,
+        "level": 13
+      },
+      {
+        "title": "UX and UI Team",
+        "value": 483,
+        "cost": 551000,
+        "level": 15
+      },
+      {
+        "title": "VC Labs",
+        "value": 1130,
+        "cost": 1251000,
+        "level": 12
+      },
+      {
+        "title": "X",
+        "value": 221,
+        "cost": 399000,
+        "level": 15
+      }
+    ],
+    "Specials": [
+      {
+        "title": "250M Hamster Players",
+        "value": 3620,
+        "cost": 3197000,
+        "level": 13
+      },
+      {
+        "title": "50M Telegram Channel",
+        "value": 1970,
+        "cost": 1192000,
+        "level": 10
+      },
+      {
+        "title": "Apps Center Listing",
+        "value": 2410,
+        "cost": 2398000,
+        "level": 13
+      },
+      {
+        "title": "Bitcoin Conference 2024",
+        "value": 6530,
+        "cost": 4844000,
+        "level": 12
+      },
+      {
+        "title": "Bitcoin Pizza Day",
+        "value": 258,
+        "cost": 332000,
+        "level": 14
+      },
+      {
+        "title": "Business Jet",
+        "value": 3210,
+        "cost": 13230000,
+        "level": 1
+      },
+      {
+        "title": "Call for BTC to Rise",
+        "value": 5350,
+        "cost": 5513000,
+        "level": 1
+      },
+      {
+        "title": "Carry it like it's hot",
+        "value": 4210,
+        "cost": 2141000,
+        "level": 11
+      },
+      {
+        "title": "Consensus Piranha Pass",
+        "value": 4280,
+        "cost": 4037000,
+        "level": 12
+      },
+      {
+        "title": "CX Hub Istanbul",
+        "value": 6760,
+        "cost": 4440000,
+        "level": 12
+      },
+      {
+        "title": "Ethereum Birthday",
+        "value": 4600,
+        "cost": 1254000,
+        "level": 9
+      },
+      {
+        "title": "Green Hamster Energy",
+        "value": 5160,
+        "cost": 5649000,
+        "level": 14
+      },
+      {
+        "title": "Hamster Analytics",
+        "value": 4210,
+        "cost": 3211000,
+        "level": 11
+      },
+      {
+        "title": "Hamster Combat Merch",
+        "value": 258,
+        "cost": 997000,
+        "level": 14
+      },
+      {
+        "title": "Hamster Store Launch",
+        "value": 11260,
+        "cost": 7669000,
+        "level": 12
+      },
+      {
+        "title": "Hamster Youtube Channel",
+        "value": 690,
+        "cost": 1088000,
+        "level": 15
+      },
+      {
+        "title": "Hamsters Break Records",
+        "value": 4720,
+        "cost": 4279000,
+        "level": 8
+      },
+      {
+        "title": "HasterWatch for Solemmate",
+        "value": 1230,
+        "cost": 1551000,
+        "level": 3
+      },
+      {
+        "title": "Kamala is Calling",
+        "value": 8530,
+        "cost": 7992000,
+        "level": 13
+      },
+      {
+        "title": "Percussion Taps",
+        "value": 3870,
+        "cost": 6646000,
+        "level": 14
+      },
+      {
+        "title": "Special Hamster Conference",
+        "value": 2480,
+        "cost": 3627000,
+        "level": 14
+      },
+      {
+        "title": "Strategic Session in Australia",
+        "value": 1,
+        "cost": 100000,
+        "level": 11
+      },
+      {
+        "title": "Telegram Miniapp Launch",
+        "value": 2250,
+        "cost": 2018000,
+        "level": 12
+      },
+      {
+        "title": "Telegram Stars Integration",
+        "value": 1800,
+        "cost": 1372000,
+        "level": 12
+      },
+      {
+        "title": "TG Leaders",
+        "value": 5930,
+        "cost": 7311000,
+        "level": 14
+      },
+      {
+        "title": "TON + Hamster Kombat = Success",
+        "value": 8030,
+        "cost": 5516000,
+        "level": 7
+      },
+      {
+        "title": "Top 10 Global Ranking",
+        "value": 3090,
+        "cost": 3323000,
+        "level": 14
+      },
+      {
+        "title": "Web3 Academy Launch",
+        "value": 3870,
+        "cost": 3655000,
+        "level": 14
+      },
+      {
+        "title": "X Network 10 Million",
+        "value": 964,
+        "cost": 1119000,
+        "level": 13
+      },
+      {
+        "title": "Youtube 25 Million",
+        "value": 5420,
+        "cost": 5981000,
+        "level": 14
+      },
+      {
+        "title": "Youtube Gold Button",
+        "value": 709,
+        "cost": 831000,
+        "level": 14
+      }
+    ],
+    "Web3": [
+      {
+        "title": "Crypto Farming",
+        "value": 5520,
+        "cost": 2091000,
+        "level": 9
+      },
+      {
+        "title": "DEX",
+        "value": 6760,
+        "cost": 6055000,
+        "level": 12
+      },
+      {
+        "title": "Grant for Developers",
+        "value": 7870,
+        "cost": 2384000,
+        "level": 10
+      },
+      {
+        "title": "Launchpad",
+        "value": 6760,
+        "cost": 7669000,
+        "level": 12
+      },
+      {
+        "title": "NFT Metaverse",
+        "value": 3210,
+        "cost": 2758000,
+        "level": 7
+      },
+      {
+        "title": "Oracle",
+        "value": 1800,
+        "cost": 1413000,
+        "level": 12
+      },
+      {
+        "title": "Sports Collectibles Marketplace",
+        "value": 1690,
+        "cost": 2398000,
+        "level": 13
+      },
+      {
+        "title": "Vesting Smartcontracts",
+        "value": 2530,
+        "cost": 1755000,
+        "level": 11
+      },
+      {
+        "title": "Web3 Advertising Platform",
+        "value": 642,
+        "cost": 72000,
+        "level": 7
+      }
+    ]
+  }
+}

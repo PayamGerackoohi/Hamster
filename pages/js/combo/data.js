@@ -1,1 +1,1 @@
-const data = { "image": "https://nobitex.ir/mag/wp-content/uploads//2024/08/همستر-۲۱-مرداد-1024x674.jpg" }
+const data = { "image": "https://nobitex.ir/mag/undefined" }

@@ -59,7 +59,8 @@ function extract(input) {
     return extractFromFile({
       input,
       output: 'temp/phase4.html',
-      digester: new StringDigester('<figure class="wp-block-image', '</ul>')
+      // digester: new StringDigester('<figure class="wp-block-image', '</ul>')
+      digester: new StringDigester('<div class="wp-block-image">', '</ul>')
     })
   }
   function phase5(input) {

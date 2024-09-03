@@ -30,7 +30,8 @@ function extract(input) {
       {
         input,
         output: `temp/phase1-${page}.html`,
-        digester: new StringDigester('<a href="https://nobitex.ir/mag/news-hamster-kombat-morse-code-', '">'),
+        // digester: new StringDigester('<a href="https://nobitex.ir/mag/news-hamster-kombat-morse-code-', '">'),
+        digester: new StringDigester('<a href="https://nobitex.ir/mag/https-nobitex-ir-mag-news-hamster-kombat-morse-code-', '">'),
       }
     )
   }
@@ -38,7 +39,8 @@ function extract(input) {
     return new Promise((resolve, reject) => {
       const text = fs.readFileSync(input).toString().replace('">', '')
       if (text)
-        resolve(`https://nobitex.ir/mag/news-hamster-kombat-morse-code-${text}`)
+        // resolve(`https://nobitex.ir/mag/news-hamster-kombat-morse-code-${text}`)
+        resolve(`https://nobitex.ir/mag/https-nobitex-ir-mag-news-hamster-kombat-morse-code-${text}`)
       else {
         page += 1
         if (page < MAX_PAGE)

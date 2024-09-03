@@ -30,6 +30,7 @@ function extract(input) {
       input,
       output: `${tempDir}phase1-${page}.html`,
       digester: new StringDigester('<a href="https://nobitex.ir/mag/news-rocky-rabbit-enigma-', '">')
+      // digester: new StringDigester('<a href="https://nobitex.ir/mag/https-nobitex-ir-mag-news-rocky-rabbit-enigma-', '">')
     })
   }
   function phase2(file) {
@@ -37,6 +38,7 @@ function extract(input) {
       const link = fs.readFileSync(file).toString().replace('">', '')
       if (link)
         resolve(`https://nobitex.ir/mag/news-rocky-rabbit-enigma-${link}`)
+      // resolve(`https://nobitex.ir/mag/https-nobitex-ir-mag-news-rocky-rabbit-enigma-${link}`)
       else {
         page += 1
         if (page < MAX_PAGE)

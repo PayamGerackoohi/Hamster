@@ -2,9 +2,9 @@ const fs = require('fs')
 const vm = require('vm')
 
 const cardList = [
-  'Evaluating...',
-  'Motivation and...',
-  'Hosting...',
+  'level up with a m...',
+  'insurance planning...',
+  'pad work prac...',
 ]
 
 const cards = {
@@ -178,30 +178,15 @@ const cards = {
   ],
 }
 
-addDescription()
-
-function addDescription() {
-  const text = fs.readFileSync('cards-data.js').toString()
-  let cardData = vm.runInNewContext(text + ';cardData')
-  if (!cardData.description) {
-    cardData.description = getDescription()
-    cardData.isRtl = false
-  }
-  fs.writeFileSync(
-    'cards-data-with-description.js',
-    `const cardData = ${JSON.stringify(cardData, null, 2)}`
-  )
-}
+console.log(JSON.stringify(getDescription(), null, 2))
 
 function getDescription() {
   const list = cardList.map(card => card.toLowerCase())
   let result = []
   expand(cards)
-  return `<ul>${result
+  return result
     .sort((a, b) => a.index - b.index)
-    .map(r => `<li>${r.value}</li>`)
-    .join('')
-    }</ul>`
+    .map(r => r.value)
 
   function expand(obj, prefix = '') {
     switch (typeof obj) {
